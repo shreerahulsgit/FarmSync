@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Kisan Portal</title>
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #ff9800;
+            --accent-color: #ffd54f;
+            --text-color: #212121;
+            --light-bg: #f5f7fa;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-dropdown {
+            padding: 12px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .filter-dropdown:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .featured-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .featured-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .scheme-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .scheme-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .scheme-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .scheme-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .scheme-description {
+            color: #757575;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .scheme-details {
+            margin-bottom: 1rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding: 1rem 1.5rem;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1565c0;
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+        
+        .btn-download {
+            background-color: #757575;
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background-color: #616161;
+            transform: scale(1.05);
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .loader-spinner {
+            border: 5px solid #e0e0e0;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .language-selector {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            z-index: 10;
+        }
+        
+        .language-selector select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            font-size: 14px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2.5rem;
+            gap: 12px;
+        }
+        
+        .pagination button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #e0e0e0;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+        
+        .eligibility-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #757575;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .eligibility-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .eligibility-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        
+        .eligibility-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .eligibility-list li:before {
+            content: "✔";
+            color: var(--secondary-color);
+            margin-right: 12px;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #424242;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .filter-container {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .schemes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .language-selector {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 1.5rem;
+                text-align: right;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Digital Kisan Portal</h1>
+        <p>Empowering Farmers with Technology and Government Support</p>
+    </header>
+    
+    <div class="container">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search for schemes...">
+            </div>
+            <div class="filter-container">
+                <select class="filter-dropdown" id="state-filter">
+                    <option value="">All States</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="uttarpradesh">Uttar Pradesh</option>
+                    <option value="tamilnadu">Tamil Nadu</option>
+                    <option value="kerala">Kerala</option>
+                </select>
+                <select class="filter-dropdown" id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="subsidies">Subsidies</option>
+                    <option value="loans">Loans</option>
+                    <option value="insurance">Insurance</option>
+                    <option value="training">Training</option>
+                    <option value="mechanization">Mechanization</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="featured-section">
+            <h2>Featured Schemes</h2>
+            <div class="schemes-grid" id="featured-schemes">
+                <!-- Featured schemes will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="loader" id="loader">
+            <div class="loader-spinner"></div>
+            <p>Loading schemes...</p>
+        </div>
+        
+        <div class="schemes-grid" id="schemes-container">
+            <!-- All schemes will be loaded here -->
+        </div>
+        
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will be generated dynamically -->
+        </div>
+    </div>
+    
+    <div class="eligibility-modal" id="eligibility-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">×</span>
+            <h2>Eligibility Criteria</h2>
+            <h3 id="modal-scheme-title"></h3>
+            <ul class="eligibility-list" id="eligibility-list">
+                <!-- Eligibility criteria will be loaded here -->
+            </ul>
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn btn-primary" id="apply-btn">Apply Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Updated schemes data with PDF links (simulated)
+        const schemesData = [
+            {
+                id: 1,
+                title: "PM-KISAN Samman Nidhi",
+                description: "Income support of ₹6000 per year in three equal installments to all land holding farmer families.",
+                image: "https://via.placeholder.com/400x200?text=PM-KISAN",
+                category: "subsidies",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "₹6,000 per year",
+                eligibility: [
+                    "Landholder farmer families with cultivable land",
+                    "Subject to exclusion criteria",
+                    "Aadhaar-linked bank account",
+                    "Up to 2 hectares landholding"
+                ],
+                applicationUrl: "https://pmkisan.gov.in/",
+                pdfUrl: "https://pmkisan.gov.in/Documents/PMKISAN_Guidelines.pdf", // Simulated
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Kisan Credit Card Scheme",
+                description: "Short-term credit for cultivation and farming needs.",
+                image: "https://via.placeholder.com/400x200?text=KCC",
+                category: "loans",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "Up to ₹3 lakhs",
+                eligibility: [
+                    "Individual or joint farmers",
+                    "Tenant farmers, share croppers",
+                    "SHGs or Joint Liability Groups",
+                    "Good repayment record"
+                ],
+                applicationUrl: "https://www.pnbindia.in/kisan-credit-card.html",
+                pdfUrl: "https://example.com/kcc_guidelines.pdf" // Simulated
+            },
+            {
+                id: 3,
+                title: "Pradhan Mantri Fasal Bima Yojana",
+                description: "Crop insurance against natural calamities.",
+                image: "https://via.placeholder.com/400x200?text=PMFBY",
+                category: "insurance",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "Premium subsidy",
+                eligibility: [
+                    "Farmers growing notified crops",
+                    "Compulsory for crop loan holders",
+                    "Voluntary for others"
+                ],
+                applicationUrl: "https://pmfby.gov.in/",
+                pdfUrl: "https://pmfby.gov.in/pdf/Guidelines.pdf", // Simulated
+                featured: true
+            },
+            {
+                id: 4,
+                title: "Sub-Mission on Agricultural Mechanization (SMAM)",
+                description: "Promotes farm mechanization with subsidies for machinery and drones.",
+                image: "https://via.placeholder.com/400x200?text=SMAM",
+                category: "mechanization",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "Varies by equipment",
+                eligibility: [
+                    "All farmers",
+                    "Priority to small and marginal farmers",
+                    "Registered under state schemes",
+                    "Valid land documents"
+                ],
+                applicationUrl: "https://agricoop.nic.in/en/Major#smam",
+                pdfUrl: "https://agricoop.nic.in/sites/default/files/SMAM_Guidelines.pdf", // Simulated
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Soil Health Card Scheme",
+                description: "Provides soil health cards to assess soil quality and fertilizer needs.",
+                image: "https://via.placeholder.com/400x200?text=Soil+Health",
+                category: "subsidies",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "Free cards",
+                eligibility: [
+                    "All farmers",
+                    "Land registered with authorities",
+                    "Participation in soil testing"
+                ],
+                applicationUrl: "https://soilhealth.dac.gov.in/",
+                pdfUrl: "https://soilhealth.dac.gov.in/pdf/SHC_Guidelines.pdf" // Simulated
+            },
+            {
+                id: 6,
+                title: "National Mission for Sustainable Agriculture (NMSA)",
+                description: "Promotes sustainable farming practices and climate resilience.",
+                image: "https://via.placeholder.com/400x200?text=NMSA",
+                category: "others",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "Project-based",
+                eligibility: [
+                    "Farmers adopting sustainable practices",
+                    "State government nomination",
+                    "Registered farmers"
+                ],
+                applicationUrl: "https://nmsa.dac.gov.in/",
+                pdfUrl: "https://nmsa.dac.gov.in/pdf/NMSA_Guidelines.pdf" // Simulated
+            },
+            {
+                id: 7,
+                title: "Paramparagat Krishi Vikas Yojana (PKVY)",
+                description: "Encourages organic farming with financial assistance.",
+                image: "https://via.placeholder.com/400x200?text=PKVY",
+                category: "subsidies",
+                state: "all",
+                lastDate: "Ongoing",
+                fundingAmount: "₹50,000/ha for 3 years",
+                eligibility: [
+                    "Groups of farmers (50 acres clusters)",
+                    "Commitment to organic practices",
+                    "No chemical use"
+                ],
+                applicationUrl: "https://pgsindia.ncof.gov.in/",
+                pdfUrl: "https://pgsindia.ncof.gov.in/pdf/PKVY_Guidelines.pdf" // Simulated
+            }
+        ];
+
+        // Constants
+        const ITEMS_PER_PAGE = 3;
+        let currentPage = 1;
+        let filteredSchemes = [...schemesData]; // Copy to avoid mutating original
+
+        // DOM Elements
+        const schemesContainer = document.getElementById('schemes-container');
+        const featuredContainer = document.getElementById('featured-schemes');
+        const paginationContainer = document.getElementById('pagination');
+        const searchInput = document.getElementById('search-input');
+        const stateFilter = document.getElementById('state-filter');
+        const categoryFilter = document.getElementById('category-filter');
+        const loader = document.getElementById('loader');
+        const modal = document.getElementById('eligibility-modal');
+        const modalTitle = document.getElementById('modal-scheme-title');
+        const eligibilityList = document.getElementById('eligibility-list');
+        const closeModal = document.getElementById('close-modal');
+        const applyBtn = document.getElementById('apply-btn');
+
+        // Function to display schemes
+        function displaySchemes(schemes, page, container = schemesContainer) {
+            container.innerHTML = '';
+            const isFeatured = container === featuredContainer;
+            const displaySchemes = isFeatured ? schemes.filter(s => s.featured) : schemes.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+            if (displaySchemes.length === 0) {
+                container.innerHTML = '<p>No schemes match your criteria.</p>';
+                return;
+            }
+
+            displaySchemes.forEach(scheme => {
+                const card = document.createElement('div');
+                card.className = 'scheme-card';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <h3 class="scheme-title">${scheme.title}</h3>
+                        <p class="scheme-description">${scheme.description}</p>
+                        <div class="scheme-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Last Date:</span>
+                                <span>${scheme.lastDate}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Funding:</span>
+                                <span>${scheme.fundingAmount}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary eligibility-btn tooltip" data-id="${scheme.id}" data-tooltip="View Eligibility">Eligibility</button>
+                        <a href="${scheme.applicationUrl}" target="_blank" class="btn btn-primary tooltip" data-tooltip="Apply Online">Apply Now</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Reattach event listeners for dynamically created elements
+            attachEventListeners();
+
+            if (!isFeatured) updatePagination(schemes.length);
+        }
+
+        // Function to attach event listeners
+        function attachEventListeners() {
+            document.querySelectorAll('.eligibility-btn').forEach(btn => {
+                btn.removeEventListener('click', handleEligibilityClick); // Prevent duplicate listeners
+                btn.addEventListener('click', handleEligibilityClick);
+            });
+        }
+
+        function handleEligibilityClick(e) {
+            const schemeId = e.target.dataset.id;
+            showEligibility(schemeId);
+        }
+
+        // Function to update pagination
+        function updatePagination(totalItems) {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.classList.toggle('active', i === currentPage);
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    displaySchemes(filteredSchemes, currentPage);
+                });
+                paginationContainer.appendChild(btn);
+            }
+        }
+
+        // Function to filter schemes
+        function filterSchemes() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const state = stateFilter.value.toLowerCase();
+            const category = categoryFilter.value.toLowerCase();
+
+            filteredSchemes = schemesData.filter(scheme => {
+                const matchesSearch = searchTerm === '' || 
+                    scheme.title.toLowerCase().includes(searchTerm) || 
+                    scheme.description.toLowerCase().includes(searchTerm);
+                const matchesState = state === '' || scheme.state === 'all' || scheme.state.toLowerCase() === state;
+                const matchesCategory = category === '' || scheme.category.toLowerCase() === category;
+                return matchesSearch && matchesState && matchesCategory;
+            });
+
+            currentPage = 1;
+            displaySchemes(filteredSchemes, currentPage);
+        }
+
+        // Function to show eligibility modal
+        function showEligibility(schemeId) {
+            const scheme = schemesData.find(s => s.id === parseInt(schemeId));
+            if (!scheme) return;
+
+            modalTitle.textContent = scheme.title;
+            eligibilityList.innerHTML = '';
+            scheme.eligibility.forEach(criterion => {
+                const li = document.createElement('li');
+                li.textContent = criterion;
+                eligibilityList.appendChild(li);
+            });
+            applyBtn.onclick = () => window.open(scheme.applicationUrl, '_blank');
+            modal.style.display = 'block';
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', debounce(filterSchemes, 300));
+        stateFilter.addEventListener('change', filterSchemes);
+        categoryFilter.addEventListener('change', filterSchemes);
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+
+        // Debounce function to limit filter calls
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        // Initial load
+        window.onload = () => {
+            loader.style.display = 'block';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                displaySchemes(schemesData.filter(s => s.featured), 1, featuredContainer);
+                displaySchemes(schemesData, currentPage);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

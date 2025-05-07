@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FarmSync - Empowering farmers with cutting-edge technology to optimize agricultural operations.">
+    <meta name="keywords" content="FarmSync, farming technology, agriculture, sustainable farming">
+    <title>FarmSync - Empowering Farmers with Technology</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-light: #f0f0f0;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url('https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742285254/thick-forest-1920x1080-14776_by8ofp.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem ;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(2deg);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .logo span {
+            color: var(--primary);
+            background: linear-gradient(45deg, var(--primary), #66BB6A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::after {
+            width: 200%;
+            height: 200%;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 900px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .hero h1 {
+            color: var(--text-light);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 15px var(--shadow);
+            background: linear-gradient(to right, white, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-light);
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            padding: 1.5rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), #97a098);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            gap: 0.2rem;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 1rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.2s forwards;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #66BB6A;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .nav-links { gap: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .logo { font-size: 2.2rem; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                justify-content: center;
+                transition: right 0.3s ease;
+            }
+            .nav-menu.active { right: 0; }
+            .nav-links { 
+                flex-direction: column; 
+                text-align: center;
+                gap: 2rem;
+            }
+            .auth-buttons { 
+                flex-direction: column; 
+                width: 80%; 
+                gap: 1rem;
+            }
+            .menu-toggle {
+                display: block;
+                color: var(--text-light);
+                font-size: 2rem;
+                cursor: pointer;
+                z-index: 3;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 1rem; }
+            .hero h1 { font-size: 2.2rem; text-align: center; }
+            .hero p { font-size: 1rem; text-align: center; }
+            .cta-button { width: 100%; justify-content: center; }
+            .features { grid-template-columns: 1fr; }
+        }
+
+        /* Accessibility */
+        .btn:focus, .cta-button:focus, .nav-links a:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo" aria-label="FarmSync Logo">Farm<span>Sync</span></div>
+            <nav class="nav-menu">
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-login" onclick="window.location.href = '/login'">Log In</a>
+                    <a href="#" class="btn btn-signup" onclick="window.location.href = '/signup'">Sign Up</a>
+                </div>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        </header>
+
+        <main class="hero">
+            <h1>Welcome to the Future of Farming</h1>
+            <p>Join the community of innovative farmers who are leveraging technology to maximize yield, reduce costs, and farm sustainably. FarmSync provides the tools you need to monitor, analyze, and optimize your agricultural operations.</p>
+            <a class="cta-button" onclick="window.location.href = '/dashboard'" >GET STARTED</a>
+        </main>
+
+        <section class="features" id="features">
+            <div class="feature-card">
+                <h3>Real-Time Monitoring</h3>
+                <p>Track soil conditions, weather, and crop health instantly.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Data Analytics</h3>
+                <p>Make informed decisions with powerful insights.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Sustainability Tools</h3>
+                <p>Reduce waste and optimize resource use.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 768) toggleMenu();
+            });
+        });
+
+        // Lazy load background image
+        window.addEventListener('load', () => {
+            document.body.style.backgroundImage = "url('https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742285254/thick-forest-1920x1080-14776_by8ofp.jpg')";
+        });
+    </script>
+</body>
+</html>

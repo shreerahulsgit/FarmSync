@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmSync - Smart Farming, Smarter Future</title>
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2F855A;
+            --secondary-green: #48BB78;
+            --earth-brown: #795548;
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="font-sans">
+<!-- Navigation -->
+<nav id="navbar" class="fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+            <div class="text-2xl font-bold text-white">FarmSync</div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Services</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact-us" class="nav-link">Contact</a>
+                <div class="relative flex items-center space-x-3">
+                    <button id="logout-btn" class="btn-logout hidden md:block"  onclick="window.location.href = '/logout'">Logout</button>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden">
+            <div class="flex flex-col text-center py-4 space-y-4">
+                <a href="#home" class="nav-link text-white py-2">Home</a>
+                <a href="#about" class="nav-link text-white py-2">About Us</a>
+                <a href="#features" class="nav-link text-white py-2">Features</a>
+                <a href="#contact-us" class="nav-link text-white py-2">Contact</a>
+                <div class="flex flex-col items-center space-y-2">
+                    <button id="logout-btn-mobile" class="btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Root Variables */
+    :root {
+        --primary-green: #2ecc71;
+        --secondary-green: #27ae60;
+        --dark-bg: #1d1d1d;
+    }
+
+    /* Navbar Styling */
+    #navbar {
+        background: transparent;
+        position: fixed;
+        width: 100%;
+        padding: 15px 0;
+        transition: background 0.5s ease-in-out, padding 0.3s ease;
+    }
+
+    #navbar.scrolled {
+        background: rgba(29, 29, 29, 0.95);
+        color: var(--primary-green);
+        backdrop-filter: blur(12px);
+        padding: 10px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Navigation Links */
+    .nav-link {
+        position: relative;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .nav-link:hover {
+        color: var(--secondary-green);
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--secondary-green);
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Profile Picture */
+    #profile-pic, #profile-pic-mobile {
+        border: 2px solid var(--primary-green);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    #profile-pic:hover, #profile-pic-mobile:hover {
+        transform: scale(1.1);
+        border-color: var(--secondary-green);
+    }
+
+    /* Logout Button */
+    .btn-logout {
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        background-color: transparent;
+        border: 1px solid var(--secondary-green);
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-logout:hover {
+        background-color: var(--secondary-green);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+        background: rgba(0, 0, 0, 0.85);
+        text-align: center;
+        display: none;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .mobile-menu.active {
+        display: block;
+    }
+
+    @media (max-width: 480px) {
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    .btn-logout {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #profile-pic, #profile-pic-mobile {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.mobile-menu {
+    background: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-menu.active {
+    display: block;
+    transform: translateY(0);
+}
+
+    /* Scrollbar Hide */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<script>
+    // Navbar Scroll Effect
+    window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+    });
+
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            mobileMenu.classList.remove('active');
+        });
+    });
+
+</script>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section flex items-center justify-center text-white">
+        <div class="text-center px-4 py-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-3 animate-slide-in">FarmSync</h1>
+            <p class="text-xl md:text-2xl mb-5 animate-slide-in-delayed">Smart Farming, Smarter Future!</p>
+            <p class="max-w-xl mx-auto mb-6 text-base md:text-lg animate-slide-in-delayed">
+                Welcome to FarmSync, the revolutionary platform designed to empower farmers with real-time insights,
+                AI-driven assistance, and essential agricultural resources.
+            </p>
+            <a href="#features" class="btn-cta inline-block px-6 py-2 text-base md:text-lg font-semibold rounded-full transition-all duration-300">
+                Explore Now
+            </a>
+        </div>
+    </section>
+    <style>
+        /* Hero Section */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                url('https://res.cloudinary.com/dqqrrgdwd/image/upload/q_auto,w_1920/v1740377908/pexels-pixabay-247599_ugczed.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            position: relative;
+        }
+    
+        /* Lighter Overlay */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2); /* Less dark for a brighter feel */
+            z-index: 1;
+        }
+    
+        .hero-section > div {
+            position: relative;
+            z-index: 2;
+        }
+    
+        /* Typography */
+        .hero-section h1 {
+            font-family: 'Poppins', sans-serif; /* Modern, clean font */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+            line-height: 1.2;
+        }
+    
+        .hero-section p {
+            font-family: 'Roboto', sans-serif; /* Simple and readable */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+    
+        /* Call-to-Action Button */
+        .btn-cta {
+            background: var(--secondary-green); /* Consistent with navbar */
+            color: white;
+            border: 1px solid var(--secondary-green);
+        }
+    
+        .btn-cta:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: scale(1.05); /* Subtle hover effect */
+        }
+    
+        /* Subtle Animation */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        .animate-slide-in {
+            animation: slideIn 0.8s ease-out forwards;
+        }
+    
+        .animate-slide-in-delayed {
+            animation: slideIn 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+            opacity: 0; /* Start hidden */
+        }
+    
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.25rem; /* Smaller but still bold */
+            }
+            .hero-section p {
+                font-size: 0.9rem;
+                max-width: 85%; /* Tighten for mobile */
+            }
+            .btn-cta {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 1.875rem; /* Even smaller for tiny screens */
+            }
+            .hero-section p {
+                font-size: 0.875rem;
+            }
+            .btn-cta {
+                padding: 0.4rem 1.25rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <h2 class="features-title">Discover FarmSync Features</h2>
+            <div class="features-grid">
+                <!-- Row 1 -->
+                <div class="feature-card" onclick="window.location.href = '/crop'">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Crop Recommendation</h3>
+                    <p>Personalized crop suggestions based on market trends and soil data.</p>
+                </div>
+                <div class="feature-card" onclick="window.location.href = '/weather'">
+                    <div class="feature-icon">⛅</div>
+                    <h3>Weather & Irrigation</h3>
+                    <p>AI-powered weather forecasts and irrigation alerts.</p>
+                </div>
+
+                <div class="feature-card" onclick=" window.location.href = '/agri_bot'">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI Chatbot</h3>
+                    <p>Instant expert advice for all your farming queries.</p>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="feature-card" onclick=" window.location.href = '/gov'">
+                    <div class="feature-icon">📜</div>
+                    <h3>Govt. Schemes</h3>
+                    <p>Access and apply for subsidies and financial aid.</p>
+                </div>
+                
+                <div class="feature-card" onclick=" window.location.href = '/coming_soon'">
+                    <div class="feature-icon">💰</div>
+                    <h3>Financial & Inventory</h3>
+                    <p>Track finances and manage inventory effortlessly.</p>
+                </div>
+                <div class="feature-card" onclick=" window.location.href = '/coming_soon'">
+                    <div class="feature-icon">📈</div>
+                    <h3>Live Commodity Pricing</h3>
+                    <p>Get real-time updates on crop prices to make informed decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4ecef 100%);
+            padding: 5rem 1rem;
+            min-height: 600px;
+            position: relative;
+            z-index: 1;
+        }
+    
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    
+        .features-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: #2ecc71; /* --primary-green */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 100%;
+        }
+    
+        .feature-card {
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+    
+        .feature-card:hover {
+            border-color: #27ae60; /* --secondary-green */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+    
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+    
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+    
+        .feature-card h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937; /* Dark gray */
+            margin-bottom: 10px;
+        }
+    
+        .feature-card p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+    
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        /* Responsive Grid */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .features-title {
+                font-size: 2rem;
+            }
+        }
+    
+        @media (max-width: 640px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .features-title {
+                font-size: 1.75rem;
+            }
+            .feature-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+<!-- About Us Section -->
+<section id="about" class="about-section">
+    <div class="about-container">
+        <!-- Navigation Tabs -->
+        <div class="about-tabs">
+            <a href="#vision" class="tab active">Our Vision</a>
+            <a href="#highlights" class="tab">Key Highlights</a>
+        </div>
+
+        <!-- Vision Slide -->
+        <div id="vision" class="about-slide active">
+            <h2 class="about-title">Our Vision</h2>
+            <p class="about-description">
+                At FarmSync, our vision has been unwavering since day one. Through our innovative platform, we aim to transform agriculture by empowering farmers with touchless, AI-driven solutions. We convert data into actionable insights, enabling farmers to work smarter, enhance sustainability, and build a connected global farming community.
+            </p>
+            <div class="about-image">
+                <img src="https://res.cloudinary.com/dqqrrgdwd/image/upload/v1741942048/vivek-vk-7YV-1obuFlg-unsplash_hom0ex.jpg" 
+                     alt="FarmSync Innovation" 
+                     class="about-img">
+                <div class="image-overlay"></div>
+            </div>
+        </div>
+
+        <!-- Highlights Slide -->
+        <div id="highlights" class="about-slide">
+            <h2 class="about-title">Key Highlights</h2>
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <span class="highlight-icon">🌱</span>
+                    <h3>Sustainable Farming</h3>
+                    <p>Promoting eco-friendly practices for a greener future.</p>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🤖</span>
+                    <h3>AI Technology</h3>
+                    <p>Delivering real-time insights with advanced AI.</p>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🌐</span>
+                    <h3>Global Reach</h3>
+                    <p>Supporting farmers in over 20 countries.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Decorative Elements -->
+    <div class="decor-shape decor-top-left"></div>
+    <div class="decor-shape decor-bottom-right"></div>
+</section>
+
+<style>
+    /* About Section */
+    .about-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e6f4ea 100%); /* FarmSync gradient */
+        padding: 80px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* Tabs */
+    .about-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .tab {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.25rem;
+        color: #374151;
+        text-decoration: none;
+        padding: 10px 25px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .tab.active, .tab:hover {
+        color: #2ecc71; /* --primary-green */
+        background: #e6f4ea;
+    }
+
+    /* Slides */
+    .about-slide {
+        display: none;
+        text-align: center;
+    }
+
+    .about-slide.active {
+        display: block;
+    }
+
+    .about-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: #1f2937;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out;
+    }
+
+    .about-description {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.25rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out 0.2s;
+    }
+
+    .about-image {
+        position: relative;
+        margin: 0 auto 30px; /* Center the image */
+        width: fit-content; /* Ensure container fits image */
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.8s ease-out 0.4s;
+    }
+
+    .about-img {
+        width: 100%;
+        max-width: 400px; /* Consistent size */
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .about-image:hover .about-img {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+        border-radius: 15px;
+        opacity: 0.5;
+    }
+
+    .about-highlights {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out 0.2s;
+    }
+
+    .highlight-item {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s ease;
+    }
+
+    .highlight-item:hover {
+        background: #e6f4ea;
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .highlight-icon {
+        font-size: 3rem;
+        color: #27ae60; /* --secondary-green */
+        margin-bottom: 15px;
+        transition: transform 0.4s ease;
+    }
+
+    .highlight-item:hover .highlight-icon {
+        transform: scale(1.2);
+    }
+
+    .highlight-item h3 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.25rem;
+        color: #1f2937;
+        margin-bottom: 10px;
+    }
+
+    .highlight-item p {
+        font-size: 0.9rem;
+        color: #4b5563;
+        line-height: 1.5;
+    }
+
+    /* Decorative Shapes */
+    .decor-shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.2;
+        transition: transform 1s ease;
+    }
+
+    .decor-top-left {
+        top: -60px;
+        left: -60px;
+        width: 150px;
+        height: 150px;
+        background: #2ecc71;
+    }
+
+    .decor-bottom-right {
+        bottom: -80px;
+        right: -80px;
+        width: 200px;
+        height: 200px;
+        background: #27ae60;
+    }
+
+    .about-section:hover .decor-top-left {
+        transform: rotate(45deg);
+    }
+
+    .about-section:hover .decor-bottom-right {
+        transform: rotate(-45deg);
+    }
+
+    /* Animation Trigger */
+    .in-view .about-title,
+    .in-view .about-image,
+    .in-view .about-description,
+    .in-view .about-highlights {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .about-highlights {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .about-img {
+            max-width: 350px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .about-tabs {
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .tab {
+            padding: 8px 15px;
+        }
+        .about-title {
+            font-size: 2rem;
+        }
+        .about-description {
+            font-size: 1.1rem;
+        }
+        .about-highlights {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .about-img {
+            max-width: 300px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .about-title {
+            font-size: 1.75rem;
+        }
+        .about-description {
+            font-size: 1rem;
+        }
+        .highlight-item {
+            padding: 20px;
+        }
+        .highlight-icon {
+            font-size: 2.5rem;
+        }
+        .highlight-item h3 {
+            font-size: 1.1rem;
+        }
+        .highlight-item p {
+            font-size: 0.85rem;
+        }
+        .about-img {
+            max-width: 250px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const aboutSection = document.querySelector("#about");
+        const tabs = document.querySelectorAll(".tab");
+        const slides = document.querySelectorAll(".about-slide");
+
+        // Tab Switching
+        tabs.forEach(tab => {
+            tab.addEventListener("click", function (e) {
+                e.preventDefault();
+                const target = this.getAttribute("href").substring(1);
+
+                tabs.forEach(t => t.classList.remove("active"));
+                slides.forEach(s => s.classList.remove("active"));
+                this.classList.add("active");
+                document.getElementById(target).classList.add("active");
+
+                // Trigger animations for new slide
+                const newSlide = document.getElementById(target);
+                newSlide.classList.add("in-view");
+            });
+        });
+
+        // Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(aboutSection);
+    });
+</script>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials-section">
+    <div class="testimonials-container">
+        <!-- Connect Section (Left, 60%) -->
+        <div class="connect-section">
+            <h2 class="connect-title">Build Your Farming Future</h2>
+            <p class="connect-text">
+                Unlock a world of opportunities by joining FarmSync’s global farmer network. Access expert advice, innovative tools, and financial resources to elevate your farming journey.
+            </p>
+            <a href="#features" class="connect-btn">ExploreNow <span>➔</span></a>
+        </div>
+
+        <!-- Testimonials Area (Right, 40%) -->
+        <div class="testimonials-wrapper">
+            <h2 class="testimonials-title">What Our Farmers Say</h2>
+            <div class="testimonials-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <img src="https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742098090/360_F_751154294_LexT8rE0UE1vlJ6RuoXdqaRLZfdwekAS_jxfnyi.jpg" 
+                         alt="Farmer 1" class="testimonial-img">
+               
+                    <p class="testimonial-text">"FarmSync’s AI recommendations doubled my yield. It’s like having a farming expert in my pocket!"</p>
+                    <h3 class="testimonial-author">Anil Sharma</h3>
+                    <p class="testimonial-location">Organic Farmer, Jaipur, Rajasthan</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <img src="https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742098090/depositphotos_667522330-stock-photo-maharashtra-look-farmer-happy-farmer_mdm86r.webp" 
+                         alt="Farmer 2" class="testimonial-img">
+            
+                    <p class="testimonial-text">"The weather alerts saved my crops from a storm. FarmSync is a lifesaver for small farmers like me."</p>
+                    <h3 class="testimonial-author">Sitan Deva</h3>
+                    <p class="testimonial-location">Farmer, Nashik, Maharashtra</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <img src="https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742098089/360_F_326960863_H6rldtPxBudJAeYsBvhWEQK3l0OwWOLe_aevcxf.jpg" 
+                         alt="Farmer 3" class="testimonial-img">
+                    
+                    <p class="testimonial-text">"Accessing government schemes through FarmSync helped me expand my farm. Highly recommend!"</p>
+                    <h3 class="testimonial-author">Ravi Reddy</h3>
+                    <p class="testimonial-location">Farmer, Anand, Gujarat</p>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card">
+                    <img src="https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742098089/360_F_432151892_oQ3YQDo2LYZPILlEMnlo55PjjgiUwnQb_knzwno.jpg" 
+                         alt="Farmer 4" class="testimonial-img">
+                    <p class="testimonial-text">"The AI chatbot answers all my questions instantly. It’s made farming so much easier!"</p>
+                    <h3 class="testimonial-author"> Hassan</h3>
+                    <p class="testimonial-location">Farmer, Karnataka</p>
+                </div>
+            </div>
+            <!-- Navigation Buttons -->
+            <div class="slider-controls">
+                <button class="prev-btn"><</button>
+                <button class="next-btn">></button>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    /* Testimonials Section */
+    .testimonials-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742098091/background_yfxozc.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 80px 20px;
+        position: relative;
+        z-index: 1; /* Prevent overlap with navbar */
+        min-height: 600px; /* Ensure sufficient space */
+        margin: 0; /* Avoid unintended spacing */
+    }
+
+    .testimonials-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    /* Connect Section (Left, 60%) */
+    .connect-section {
+        width: 50%;
+        background: rgba(255, 255, 255, 0.0); /* Transparent white */
+        padding: 70px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out; 
+    }
+
+    .connect-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 3.5rem;
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .connect-text {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.1rem;
+        color: #ffffff;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .connect-btn {
+        display: inline-flex;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2ecc71; /* --primary-green */
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .connect-btn span {
+        margin-left: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .connect-btn:hover {
+        color: #27ae60; /* --secondary-green */
+    }
+
+    .connect-btn:hover span {
+        transform: translateX(5px);
+    }
+
+    /* Testimonials Wrapper (Right, 40%) */
+    .testimonials-wrapper {
+        width: 38%; /* 40% minus some padding/margin */
+        text-align: center;
+    }
+
+    .testimonials-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: #ffffff;
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out;
+    }
+
+    .testimonials-slider {
+        position: relative;
+        width: 100%;
+        height: 400px; /* Fixed height to contain card */
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .testimonial-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.6s ease-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .testimonial-card.active {
+        opacity: 1;
+        transform: translateX(0);
+        z-index: 2;
+    }
+
+    .testimonial-card.next {
+        transform: translateX(100%);
+        z-index: 1;
+    }
+
+    .testimonial-card.prev {
+        transform: translateX(-100%);
+        z-index: 1;
+    }
+
+    .testimonial-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px; /* Square shape */
+        margin-bottom: 20px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .testimonial-card:hover .testimonial-img {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+    }
+
+    .quote-icon {
+        font-size: 2.5rem;
+        color: #2ecc71;
+        margin-bottom: 15px;
+    }
+
+    .testimonial-text {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.1rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .testimonial-author {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 5px;
+    }
+
+    .testimonial-location {
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    /* Slider Controls */
+    .slider-controls {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 3;
+    }
+
+    .prev-btn, .next-btn {
+        font-size: 1.5rem;
+        padding: 10px 15px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 100%;
+        cursor: pointer;
+        color: #000000;
+        transition: all 0.3s ease;
+    }
+
+    .prev-btn:hover, .next-btn:hover {
+        background: #e6f4ea;
+        transform: scale(1.2);
+    }
+
+    /* Animation Trigger */
+    .in-view .connect-section,
+    .in-view .testimonials-title,
+    .in-view .testimonial-card.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .testimonials-container {
+            flex-direction: column;
+        }
+        .connect-section {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        .testimonials-wrapper {
+            width: 100%;
+        }
+        .testimonials-slider {
+            height: 450px;
+        }
+        .testimonial-img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .connect-title {
+            font-size: 2rem;
+        }
+        .connect-text {
+            font-size: 1rem;
+        }
+        .testimonials-title {
+            font-size: 2rem;
+        }
+        .testimonial-img {
+            width: 100px;
+            height: 100px;
+        }
+        .testimonial-text {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .connect-section {
+            padding: 30px;
+        }
+        .connect-title {
+            font-size: 1.5rem;
+        }
+        .testimonials-title {
+            font-size: 1.75rem;
+        }
+        .testimonials-slider {
+            height: 400px;
+        }
+        .testimonial-img {
+            width: 90px;
+            height: 90px;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+        }
+        .prev-btn, .next-btn {
+            padding: 8px 12px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const testimonialsSection = document.querySelector("#testimonials");
+        const slider = document.querySelector(".testimonials-slider");
+        const cards = document.querySelectorAll(".testimonial-card");
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+
+        let currentIndex = 0;
+
+        function showCard(index) {
+            cards.forEach((card, i) => {
+                card.classList.remove("active", "next", "prev");
+                if (i === index) {
+                    card.classList.add("active");
+                } else if (i < index) {
+                    card.classList.add("prev");
+                } else {
+                    card.classList.add("next");
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % cards.length;
+            showCard(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            showCard(currentIndex);
+        }
+
+        nextBtn.addEventListener("click", nextSlide);
+        prevBtn.addEventListener("click", prevSlide);
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(testimonialsSection);
+        showCard(currentIndex); // Initialize with first card
+    });
+</script>
+
+ <!-- Why Use FarmSync Section (Centered with Gradient) -->
+<section id="why-use-farmsync" class="py-16 relative">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6 text-gray-800" style="color: var(--primary-green);">Why should I use FarmSync?</h2>
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                FarmSync empowers farmers with cutting-edge tools to boost productivity and sustainability. With the newly completed AI Chatbot, you now have instant access to expert farming advice. Here’s why you should join:
+            </p>
+            <ul class="list-none text-gray-700 space-y-4">
+                <li class="flex items-start">
+                    <i class="fas fa-leaf mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">AI-driven <strong>Crop Recommendations</strong> based on soil and climate data.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-cloud-sun mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">Real-time <strong>Weather Forecasts</strong> and irrigation alerts to optimize water usage.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-hand-holding-usd mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">Access to <strong>Government Schemes</strong> for subsidies and financial aid.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-coins mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">Unlock <strong>Member Credits</strong> to save on premium features (coming soon).</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-chart-line mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">Track your farm’s progress with <strong>FarmSync FIT</strong> (under development) for data-driven insights.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-robot mr-3 text-2xl" style="color: var(--primary-green);"></i>
+                    <span class="text-lg">Instant <strong>AI Chatbot</strong> advice—get personalized answers on crops, weather, and more 24/7.</span>
+                </li>
+            </ul>
+            <div class="mt-8">
+                <button class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 text-lg" href="#features">Explore Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section (Centered Below) -->
+<section id="faq" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <h3 class="text-3xl font-semibold mb-8 text-gray-800 text-center" style="color: var(--secondary-green);">Frequently Asked Questions</h3>
+            <div class="accordion" id="faqAccordion">
+                <!-- FAQ 1 -->
+                <div class="accordion-item mb-4">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed flex items-center justify-between w-full py-4 px-5 text-xl font-medium text-gray-800 bg-transparent transition-all duration-300 hover:text-green-600" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseOne" 
+                                aria-expanded="false" 
+                                aria-controls="collapseOne" 
+                                style="color: var(--primary-green);">
+                            <span><i class="fas fa-robot mr-3"></i> What is the FarmSync AI Chatbot?</span>
+                            <span class="text-2xl transition-transform duration-300">+</span>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body py-4 px-5 text-gray-700 text-lg leading-relaxed">
+                            The FarmSync AI Chatbot is an intelligent tool designed to provide instant farming advice. It uses advanced AI to answer questions about crop selection, pest management, weather impacts, and more, available 24/7 to support your farming needs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item mb-4">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed flex items-center justify-between w-full py-4 px-5 text-xl font-medium text-gray-800 bg-transparent transition-all duration-300 hover:text-green-600" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseTwo" 
+                                aria-expanded="false" 
+                                aria-controls="collapseTwo" 
+                                style="color: var(--primary-green);">
+                            <span><i class="fas fa-sign-in-alt mr-3"></i> How do I access the AI Chatbot?</span>
+                            <span class="text-2xl transition-transform duration-300">+</span>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body py-4 px-5 text-gray-700 text-lg leading-relaxed">
+                            You can access the AI Chatbot by logging into your FarmSync account and clicking the "Chat with AI" button on the homepage or dashboard. It’s available on both desktop and mobile devices—no additional setup required!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item mb-4">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed flex items-center justify-between w-full py-4 px-5 text-xl font-medium text-gray-800 bg-transparent transition-all duration-300 hover:text-green-600" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseThree" 
+                                aria-expanded="false" 
+                                aria-controls="collapseThree" 
+                                style="color: var(--primary-green);">
+                            <span><i class="fas fa-question-circle mr-3"></i> What kind of questions can I ask the AI Chatbot?</span>
+                            <span class="text-2xl transition-transform duration-300">+</span>
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body py-4 px-5 text-gray-700 text-lg leading-relaxed">
+                            You can ask a wide range of questions, including:  
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Which crops are best for my soil type?</li>
+                                <li>How should I adjust irrigation based on today’s weather?</li>
+                                <li>What are the latest pest control methods?</li>
+                            </ul>
+                            The chatbot learns from your queries to provide more tailored responses over time.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item mb-4">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed flex items-center justify-between w-full py-4 px-5 text-xl font-medium text-gray-800 bg-transparent transition-all duration-300 hover:text-green-600" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseFour" 
+                                aria-expanded="false" 
+                                aria-controls="collapseFour" 
+                                style="color: var(--primary-green);">
+                            <span><i class="fas fa-check-circle mr-3"></i> Is the AI Chatbot accurate and reliable?</span>
+                            <span class="text-2xl transition-transform duration-300">+</span>
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body py-4 px-5 text-gray-700 text-lg leading-relaxed">
+                            Yes, the AI Chatbot is trained on extensive agricultural data, including soil science, weather patterns, and farming best practices. While highly reliable, we recommend cross-checking critical decisions with local experts for optimal results.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="accordion-item mb-4">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed flex items-center justify-between w-full py-4 px-5 text-xl font-medium text-gray-800 bg-transparent transition-all duration-300 hover:text-green-600" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapseFive" 
+                                aria-expanded="false" 
+                                aria-controls="collapseFive" 
+                                style="color: var(--primary-green);">
+                            <span><i class="fas fa-lock mr-3"></i> Can I use the AI Chatbot without a subscription?</span>
+                            <span class="text-2xl transition-transform duration-300">+</span>
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body py-4 px-5 text-gray-700 text-lg leading-relaxed">
+                            Basic access to the AI Chatbot is available to all registered users. However, premium features (e.g., detailed reports or priority responses) require a FarmSync subscription—upgrade anytime to unlock more!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback and Support -->
+            <div class="mt-8 flex items-center justify-center text-gray-600">
+                <span class="text-lg">Was this article helpful?</span>
+                <button class="ml-3 text-green-600 hover:text-green-800 transition-all duration-300 transform hover:scale-110" aria-label="Yes"><i class="fas fa-thumbs-up text-lg"></i></button>
+                <button class="ml-3 text-red-600 hover:text-red-800 transition-all duration-300 transform hover:scale-110" aria-label="No"><i class="fas fa-thumbs-down text-lg"></i></button>
+                <span class="ml-3 text-sm">30 of 49 found helpful</span>
+            </div>
+            <div class="mt-6 text-center">
+                <a href="#contact-us" class="text-green-600 hover:text-green-800 transition-all duration-300 underline text-lg">Contact Support</a> if you need further assistance.
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Gradient Animation for Why Use FarmSync Section */
+    #why-use-farmsync {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    @keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    #why-use-farmsync ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* FAQ Section Styling */
+    #faq {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    #faq .accordion-button:not(.collapsed) {
+        color: var(--secondary-green) !important;
+    }
+
+    #faq .accordion-button:not(.collapsed) span:last-child {
+        transform: rotate(45deg);
+    }
+
+    #faq .accordion-button:focus {
+        border: none;
+        outline: none;
+    }
+
+    #faq .accordion-button::after {
+        display: none; /* Remove default Bootstrap icon */
+    }
+
+    #faq .accordion-item {
+        transition: all 0.3s ease;
+    }
+
+    #faq .accordion-item:hover .accordion-button {
+        transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        #why-use-farmsync .max-w-3xl,
+        #faq .max-w-3xl {
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 640px) {
+        #why-use-farmsync h2 {
+            font-size: 2rem;
+        }
+        #faq h3 {
+            font-size: 1.75rem;
+        }
+        #faq .accordion-button {
+            font-size: 1.25rem;
+            padding: 1rem;
+        }
+        #faq .accordion-body {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+        #why-use-farmsync ul li,
+        #faq .accordion-body,
+        #faq .text-lg {
+            font-size: 1rem;
+        }
+        #why-use-farmsync button,
+        #faq .text-2xl {
+            font-size: 1.25rem;
+        }
+    }
+</style>
+
+<script>
+    // Feedback Submission to Server
+    const feedbackButtons = document.querySelectorAll('button[aria-label]');
+    feedbackButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const feedback = button.getAttribute('aria-label') === 'Yes' ? 'helpful' : 'not helpful';
+            const question = button.closest('.accordion-item').querySelector('.accordion-button span:first-child').textContent;
+
+            try {
+                const response = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question, feedback })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(`Thank you for your feedback! Submission ID: ${data.feedbackId}`);
+                } else {
+                    alert('Failed to submit feedback. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('An error occurred. Please contact support.');
+            }
+        });
+    });
+</script>
+
+<!-- Contact Us Section -->
+<section id="contact-us" class="py-20 bg-gradient-to-b from-green-100 to-white relative overflow-hidden">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4" style="color: var(--primary-green);">Get in Touch</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">We’re here to help you with any questions or support needs. Reach out to us today!</p>
+        </div>
+        <div class="flex justify-center">
+            <div class="w-full max-w-lg p-8 bg-white rounded-xl shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:-translate-y-2 border border-green-200 animate-fade-in">
+                <div class="flex items-center justify-center mb-6">
+                    <i class="fas fa-envelope-open-text text-4xl text-green-600 transition-transform duration-300 hover:scale-110"></i>
+                </div>
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                    <input type="hidden" name="access_key" value="29f306d4-9742-4713-a4be-e903f21eb3a8">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 hover:border-green-400">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 hover:border-green-400">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
+                        <textarea id="message" name="message" placeholder="Type your message here" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 hover:border-green-400 resize-none"></textarea>
+                    </div>
+                    <input type="checkbox" name="botcheck" class="d-none">
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all duration-300 font-semibold text-lg shadow-md hover:shadow-lg hover:scale-105">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-green-200 rounded-full opacity-20 blur-lg -z-10 animate-pulse"></div>
+    <div class="absolute bottom-0 right-0 w-40 h-40 bg-green-300 rounded-full opacity-20 blur-lg -z-10 animate-pulse delay-1000"></div>
+</section>
+
+<style>
+    /* Section Styling */
+    #contact-us {
+        background: linear-gradient(to bottom, #e0f7e9, #ffffff);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Animation for Fade-In */
+    .animate-fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        position: relative;
+    }
+
+    .animate-fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Decorative Elements */
+    .animate-pulse {
+        animation: pulse 6s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    /* Form Styling */
+    #contact-us .shadow-2xl {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    #contact-us .shadow-3xl {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    #contact-us input,
+    #contact-us textarea {
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    #contact-us input:focus,
+    #contact-us textarea:focus {
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    #contact-us input:hover,
+    #contact-us textarea:hover {
+        border-color: #48BB78;
+    }
+
+    #contact-us .btn-primary {
+        background-color: #48BB78;
+        border: none;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    #contact-us .btn-primary:hover {
+        background-color: #38A169;
+    }
+
+    /* Responsive Design and Fixes */
+    @media (max-width: 640px) {
+        #contact-us {
+            padding-top: 10rem;
+            padding-bottom: 10rem;
+        }
+        #contact-us h2 {
+            font-size: 2.5rem;
+        }
+        #contact-us .max-w-lg {
+            max-width: 90%;
+            padding: 1.5rem;
+        }
+        #contact-us input,
+        #contact-us textarea {
+            padding: 0.75rem;
+            font-size: 0.95rem;
+        }
+        #contact-us .btn-primary {
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+        #contact-us .text-lg {
+            font-size: 1rem;
+        }
+    }
+
+    /* Ensure Proper Fitting */
+    #contact-us .container {
+        position: relative;
+        z-index: 10;
+    }
+
+    #contact-us .flex {
+        align-items: center;
+    }
+
+    #contact-us .w-full {
+        width: 100%;
+    }
+</style>
+
+<script>
+     // Scroll Event Listener
+     document.addEventListener("scroll", () => {
+        const elements = document.querySelectorAll(".scroll-center");
+        const windowHeight = window.innerHeight;
+
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const elementCenter = rect.top + rect.height / 2;
+            const viewportCenter = windowHeight / 2;
+            
+            if (rect.top < windowHeight - 100) {
+                element.classList.add("visible");
+            }
+
+            // Calculate smooth movement towards center
+            let translateY = Math.max(0, (elementCenter - viewportCenter) / 5);
+            element.style.transform = `translateY(${translateY}px)`;
+        });
+    });
+
+    // Trigger animation on page load
+    window.addEventListener('load', () => {
+        const elements = document.querySelectorAll('.animate-fade-in');
+        elements.forEach(element => {
+            element.classList.add('visible');
+        });
+    });
+</script>
+
+<!-- Footer Section -->
+<footer id="footer" class="bg-dark text-white py-4">
+    <div class="container py-3">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+            <!-- Logo -->
+            <div class="col text-center text-lg-start animate-on-scroll">
+                <h2 class="fw-bold mb-2" style="font-size: 1.75rem;">FarmSync</h2>
+                <p style="font-size: 0.9rem;">Connecting Farmers with Technology</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col text-center text-lg-start animate-on-scroll">
+                <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Quick Links</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-1"><a href="#home" class="text-white text-decoration-none" style="font-size: 0.9rem;">Home</a></li>
+                    <li class="mb-1"><a href="#about" class="text-white text-decoration-none" style="font-size: 0.9rem;">About Us</a></li>
+                    <li class="mb-1"><a href="#features" class="text-white text-decoration-none" style="font-size: 0.9rem;">Features</a></li>
+                    <li class="mb-1"><a href="#contact-us" class="text-white text-decoration-none" style="font-size: 0.9rem;">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="col text-center text-lg-start animate-on-scroll">
+                <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Contact</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-phone me-2"></i> +91 98765 43210</li>
+                    <li class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-envelope me-2"></i> <a href="mailto:support@farmsync.com" class="text-white text-decoration-none">support@farmsync.com</a></li>
+                    <li class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-map-marker-alt me-2"></i> WhiteField, Bangaluru India</li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col text-center text-lg-start animate-on-scroll">
+                <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Newsletter</h3>
+                <p style="font-size: 0.9rem; margin: 10px;">Subscribe for updates.</p>
+                <form>
+                    <input type="email" class="form-control mb-2" placeholder="Your Email" required style="font-size: 0.9rem; padding: 0.5rem;">
+                    <button type="submit" class="btn btn-success w-100" style="font-size: 0.9rem; padding: 0.5rem;">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col text-center animate-on-scroll">
+                <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Follow Us</h3>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 pt-3 border-top border-white animate-on-scroll">
+            <p style="font-size: 0.85rem;">© 2025 FarmSync. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    #footer {
+        background-color: #212121;
+        padding:0 20px;
+    }
+
+    #footer a:hover {
+        color: #cccccc;
+        text-decoration: underline;
+    }
+
+    #footer .fa-brands {
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    #footer .fa-brands:hover {
+        transform: scale(1.2);
+        color: #cccccc;
+    }
+
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const footerElements = document.querySelectorAll("#footer .animate-on-scroll");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.2 });
+
+        footerElements.forEach(el => observer.observe(el));
+    });
+</script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

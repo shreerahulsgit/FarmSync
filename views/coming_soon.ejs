@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmSync - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e6f4ea 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        /* Coming Soon Section */
+        .coming-soon-section {
+            padding: 40px 20px;
+            width: 100%;
+        }
+    
+        .coming-soon-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .coming-soon-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: #2ecc71;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+    
+        .coming-soon-subtitle {
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 40px;
+            max-width: 600px;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+    
+        /* Teaser Grid */
+        .teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Fixed to 2 columns */
+            gap: 30px;
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 40px;
+            justify-items: center;
+        }
+    
+        .teaser-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 350px; /* Ensure consistent card width */
+            text-align: center;
+        }
+    
+        .teaser-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+    
+        .teaser-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+    
+        .teaser-card:hover .teaser-icon {
+            transform: scale(1.2);
+            color: #27ae60;
+        }
+    
+        .teaser-card h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+    
+        .teaser-card p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+    
+        /* Footer Links */
+        .coming-soon-footer {
+            font-size: 1rem;
+            color: #4b5563;
+            padding: 0 20px;
+        }
+    
+        .home-link, .email-link {
+            color: #2ecc71;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+    
+        .home-link:hover, .email-link:hover {
+            color: #27ae60;
+        }
+    
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .teaser-grid {
+                grid-template-columns: 1fr; /* 1 column on smaller screens */
+                gap: 20px;
+            }
+            .coming-soon-title {
+                font-size: 2rem;
+            }
+            .coming-soon-subtitle {
+                font-size: 1rem;
+            }
+            .teaser-card {
+                max-width: 100%;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .coming-soon-section {
+                padding: 20px 15px;
+            }
+            .coming-soon-title {
+                font-size: 1.8rem;
+            }
+            .coming-soon-subtitle {
+                font-size: 0.9rem;
+            }
+            .teaser-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="coming-soon-section">
+        <div class="coming-soon-container">
+            <h1 class="coming-soon-title">Exciting Features Coming Soon!</h1>
+            <p class="coming-soon-subtitle">We’re working hard to bring you more tools to revolutionize your farming experience.</p>
+            <div class="teaser-grid">
+                <div class="teaser-card">
+                    <div class="teaser-icon">📈</div>
+                    <h3>Live Commodity Pricing</h3>
+                    <p>Get real-time updates on crop prices to make informed decisions.</p>
+                </div>
+                <div class="teaser-card">
+                    <div class="teaser-icon">💰</div>
+                    <h3>Financial & Inventory Tracking</h3>
+                    <p>Effortless management of finances and inventory coming your way!</p>
+                </div>
+            </div>
+            <p class="coming-soon-footer">Back to <a href="/dashboard" class="home-link">Home</a> or stay updated via <a href="mailto:updates@farmsync.com" class="email-link">email</a>.</p>
+        </div>
+    </section>
+</body>
+</html>
