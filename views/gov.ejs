@@ -469,7 +469,6 @@
     </div>
     
     <script>
-        // Updated schemes data with PDF links (simulated)
         const schemesData = [
             {
                 id: 1,
@@ -598,12 +597,10 @@
             }
         ];
 
-        // Constants
         const ITEMS_PER_PAGE = 3;
         let currentPage = 1;
-        let filteredSchemes = [...schemesData]; // Copy to avoid mutating original
+        let filteredSchemes = [...schemesData];
 
-        // DOM Elements
         const schemesContainer = document.getElementById('schemes-container');
         const featuredContainer = document.getElementById('featured-schemes');
         const paginationContainer = document.getElementById('pagination');
@@ -617,7 +614,6 @@
         const closeModal = document.getElementById('close-modal');
         const applyBtn = document.getElementById('apply-btn');
 
-        // Function to display schemes
         function displaySchemes(schemes, page, container = schemesContainer) {
             container.innerHTML = '';
             const isFeatured = container === featuredContainer;
@@ -654,13 +650,11 @@
                 container.appendChild(card);
             });
 
-            // Reattach event listeners for dynamically created elements
             attachEventListeners();
 
             if (!isFeatured) updatePagination(schemes.length);
         }
 
-        // Function to attach event listeners
         function attachEventListeners() {
             document.querySelectorAll('.eligibility-btn').forEach(btn => {
                 btn.removeEventListener('click', handleEligibilityClick); // Prevent duplicate listeners
@@ -673,7 +667,6 @@
             showEligibility(schemeId);
         }
 
-        // Function to update pagination
         function updatePagination(totalItems) {
             paginationContainer.innerHTML = '';
             const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
@@ -692,7 +685,6 @@
             }
         }
 
-        // Function to filter schemes
         function filterSchemes() {
             const searchTerm = searchInput.value.trim().toLowerCase();
             const state = stateFilter.value.toLowerCase();
@@ -711,7 +703,6 @@
             displaySchemes(filteredSchemes, currentPage);
         }
 
-        // Function to show eligibility modal
         function showEligibility(schemeId) {
             const scheme = schemesData.find(s => s.id === parseInt(schemeId));
             if (!scheme) return;
@@ -727,7 +718,6 @@
             modal.style.display = 'block';
         }
 
-        // Event listeners
         searchInput.addEventListener('input', debounce(filterSchemes, 300));
         stateFilter.addEventListener('change', filterSchemes);
         categoryFilter.addEventListener('change', filterSchemes);
@@ -740,7 +730,6 @@
             if (e.target === modal) modal.style.display = 'none';
         });
 
-        // Debounce function to limit filter calls
         function debounce(func, delay) {
             let timeoutId;
             return function (...args) {
@@ -749,7 +738,6 @@
             };
         }
 
-        // Initial load
         window.onload = () => {
             loader.style.display = 'block';
             setTimeout(() => {

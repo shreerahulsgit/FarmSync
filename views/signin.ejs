@@ -11,12 +11,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #3B6B64; /* Updated primary text color */
+            color: #3B6B64;
         }
     
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #DCEBE5, #F5F8F6); /* Updated gradient */
+            background: linear-gradient(135deg, #DCEBE5, #F5F8F6);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -43,7 +43,7 @@
     
         .logo i {
             margin-right: 10px;
-            color: #3B6B64; /* Updated icon color */
+            color: #3B6B64;
         }
     
         .form-group {
@@ -60,14 +60,14 @@
         .form-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #90C2AE; /* Updated border color */
+            border: 2px solid #90C2AE;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
         }
     
         .form-group input:focus {
-            border-color: #3B6B64; /* Updated primary accent for focus */
+            border-color: #3B6B64;
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 107, 100, 0.2);
         }
@@ -76,7 +76,7 @@
             position: absolute;
             right: 15px;
             top: 45px;
-            color: #90C2AE; /* Updated icon color */
+            color: #90C2AE;
         }
     
         .password-toggle {
@@ -97,7 +97,7 @@
         }
     
         .forgot-password {
-            color: #3B6B64; /* Updated secondary accent for links */
+            color: #3B6B64;
             text-decoration: none;
             font-size: 14px;
         }
@@ -109,8 +109,8 @@
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: #3B6B64; /* Updated primary accent for button */
-            color: #F5F8F6; /* Updated primary background for contrast */
+            background: #3B6B64;
+            color: #F5F8F6;
             border: none;
             border-radius: 8px;
             font-size: 16px;
@@ -122,8 +122,8 @@
         }
     
         .login-btn:hover {
-            background: #90C2AE; /* Updated secondary for hover */
-            color: #F5F8F6; /* Updated light text for contrast */
+            background: #90C2AE;
+            color: #F5F8F6;
         }
     
         .login-btn.loading {
@@ -140,7 +140,7 @@
             margin: -10px 0 0 -10px;
             border: 3px solid rgba(59, 107, 100, 0.3);
             border-radius: 50%;
-            border-top-color: #3B6B64; /* Updated primary accent for spinner */
+            border-top-color: #3B6B64;
             animation: spin 1s linear infinite;
         }
     
@@ -150,7 +150,7 @@
         }
     
         .signup-link a {
-            color: #3B6B64; /* Updated primary accent for links */
+            color: #3B6B64;
             text-decoration: none;
             font-weight: 600;
         }
@@ -160,7 +160,7 @@
         }
     
         .error-message {
-            color: #DE737D; /* Error state color (kept unchanged for visibility) */
+            color: #DE737D;
             font-size: 14px;
             margin-top: 5px;
             display: none;
@@ -169,7 +169,7 @@
         .password-strength {
             margin-top: 5px;
             height: 4px;
-            background: #DCEBE5; /* Updated secondary background */
+            background: #DCEBE5;
             border-radius: 2px;
             overflow: hidden;
         }
@@ -251,7 +251,6 @@
     </div>
 
     <script>
-        // Password visibility toggle
         const passwordToggle = document.getElementById('passwordToggle');
         const passwordInput = document.getElementById('password');
 
@@ -262,7 +261,6 @@
             this.classList.toggle('fa-eye-slash');
         });
 
-        // Password strength checker
         function checkPasswordStrength(password) {
             const strengthBar = document.getElementById('strengthBar');
             const strengthText = document.getElementById('strengthText');
@@ -297,7 +295,6 @@
             checkPasswordStrength(this.value);
         });
 
-        // Form validation and submission
         async function validateForm(event) {
             event.preventDefault();
             
@@ -308,13 +305,11 @@
             const loginButton = document.getElementById('loginButton');
             let isValid = true;
 
-            // Reset error messages
             emailError.style.display = 'none';
             passwordError.style.display = 'none';
             email.style.borderColor = '#e1e1e1';
             password.style.borderColor = '#e1e1e1';
 
-            // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email.value.trim()) {
                 emailError.textContent = 'Email is required';
@@ -328,7 +323,6 @@
                 isValid = false;
             }
 
-            // Password validation
             if (!password.value.trim()) {
                 passwordError.textContent = 'Password is required';
                 passwordError.style.display = 'block';
@@ -385,13 +379,10 @@
             return false;
         }
 
-        // Social login handling
         function socialLogin(provider) {
             console.log(`Initiating ${provider} login`);
-            // Add your social login implementation here
         }
 
-        // Input event listeners
         document.getElementById('email').addEventListener('input', function() {
             this.style.borderColor = '#e1e1e1';
             document.getElementById('emailError').style.display = 'none';

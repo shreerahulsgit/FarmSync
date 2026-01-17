@@ -19,15 +19,13 @@ const generate_session_id = () => {
     return prefix + random_part;
 };
 
-// MongoDB Connection
 mongoose.connect('mongodb://localhost:27017/sample')
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '10mb' }));
-// Session Storage
+
 app.use(session({
     secret: '91a3167d38f760d72af0ad296c108e287ae820b23413ad0b5ab0c210cda1ed0ec0951ebf8db202e964960af11adc6e3b97cab0e4e56f416770010addb16ae95f',
     resave: false,
@@ -46,17 +44,14 @@ app.use(session({
     }
 }));
 
-// Set view engine
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, "public")));
 
-// Backend API Routes
 app.use('/', auth_api);
 app.use('/', web_renders);
 app.use('/', crop_api);
 app.use('/', bot_api);
 
-// Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

@@ -341,7 +341,6 @@
     </div>
 
     <script>
-        // Push Notification functionality
         let notificationPermission = false;
         
         document.getElementById('notification-permission-btn').addEventListener('click', function() {
@@ -364,7 +363,6 @@
         }
         
         function checkAndNotify() {
-            // This function will be called when we have weather data and permission
         }
         
         function sendRainNotification(day, date) {
@@ -490,7 +488,6 @@
                             weatherContainer.innerHTML += weatherCard;
                         });
                         
-                        // Handle rain alerts and notifications
                         if (rainToday || rainTomorrow) {
                             const alertText = document.getElementById('alert-text');
                             const alertElement = document.getElementById('notification-alert');
@@ -503,7 +500,6 @@
                             
                             alertElement.style.display = 'flex';
                             
-                            // Check if we can send a notification
                             checkAndNotify = function() {
                                 if (notificationPermission && firstRainyDay && firstRainyDate) {
                                     sendRainNotification(firstRainyDay, firstRainyDate);
@@ -535,7 +531,6 @@
             }
         );
         
-        // Check notification permission status on load
         if ("Notification" in window) {
             if (Notification.permission === "granted") {
                 notificationPermission = true;

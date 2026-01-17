@@ -1,9 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const user_data = require('../../models/user-data');
-const { channel } = require('diagnostics_channel');
 const router = express.Router();
-
 
 const generate_uid = (desired_length) => {
     const prefix = "01";
@@ -12,12 +10,10 @@ const generate_uid = (desired_length) => {
     return prefix + random_part;
 };
 
-
 router.post('/api/signup', async (req, res) => {
     try {
         const { firstname, lastname, email, password } = req.body;
-
-        if ('!lastname  !email  !password') {
+        if (!lastname || !email || !password) {
             return res.status(400).json({ message: 'Please provide all required fields.' });
         }
 
@@ -27,16 +23,12 @@ router.post('/api/signup', async (req, res) => {
         }
 
         const hashed_password = await bcrypt.hash(password, 10);
-        const custom_uid = generate_uid(23);
-        const channel_uid = generate_uid(18);
-        const new_user = new user_data({
-            uid: custom_uid,
-            name: firstname + ' ' + lastname,
-            email: email,
-            password: hashed_password,
-            channel: channel_uid
-        });
+        const custom_uid = generate_uid(23); const channel_uid = generate_uid(18);
 
+        const new_user = new user_data({
+            uid: custom_uid, name: firstname + ' ' + lastname, email: email,
+            password: hashed_password, channel: channel_uid
+        });
         await new_user.save();
 
         res.status(201).json({ message: 'Registration successful, Please log in.' });
@@ -48,14 +40,12 @@ router.post('/api/signup', async (req, res) => {
 
 router.post('/api/login', async (req, res) => {
     const { email, password, rememberme} = req.body;
-
     if (!email || !password) {
         return res.status(400).json({ message: 'Username and password are required.' });
     }
 
     try {
         const user = await user_data.findOne({ email :email });
-
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials entered, try again.' });
         }
@@ -66,7 +56,6 @@ router.post('/api/login', async (req, res) => {
         }
 
         req.session.uid = user.uid;
-        
         req.session.save((err) => {
             if (err) {
                 console.error('Session save error:', err);

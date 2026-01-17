@@ -427,7 +427,6 @@
             nav.classList.toggle('active');
         }
 
-        // Smooth scrolling for nav links
         document.querySelectorAll('.nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -437,7 +436,6 @@
             });
         });
 
-        // Lazy load background image
         window.addEventListener('load', () => {
             document.body.style.backgroundImage = "url('https://res.cloudinary.com/dqqrrgdwd/image/upload/v1742285254/thick-forest-1920x1080-14776_by8ofp.jpg')";
         });

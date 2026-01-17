@@ -475,13 +475,11 @@
 
         async function initChat() {
             try {
-                // Get chat history from server
                 const response = await fetch(HISTORY_URL);
                 if (response.ok) {
                     const data = await response.json();
                     chatHistory = data.history || [];
                     
-                    // Display existing chat messages
                     chatHistory.forEach(msg => {
                         if (msg.user !== 'bot') {
                             addUserMessage(msg.content, msg.id);
